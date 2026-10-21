@@ -1,0 +1,13 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Agent Station — TikTok sign-in</title>
+<style>body{font:16px/1.6 system-ui,sans-serif;max-width:720px;margin:40px auto;padding:0 16px;color:#222;background:#fff}</style></head><body>
+<h1>Agent Station — TikTok sign-in</h1>
+<p id="msg">Returning to Agent Station on this computer…</p>
+<script>
+// TikTok requires an https redirect URI. Agent Station runs only on the owner's own computer, so this page passes the
+// sign-in result to it at 127.0.0.1. The local port is the first part of `state` ("<port>.<random>"); nothing is stored here.
+const q = new URLSearchParams(location.search);
+const port = (q.get("state") || "").split(".")[0];
+if (/^\d{2,5}$/.test(port)) location.replace("http://127.0.0.1:" + port + "/" + location.search);
+else document.getElementById("msg").textContent = "Sign-in finished, but Agent Station is not waiting for it. Start the connection again from Agent Station.";
+</script>
+</body></html>
